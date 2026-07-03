@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Rose — Portfolio</title>
+<meta name="description" content="Physical geographer specializing in GIS, spatial analysis, and watershed research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #16211D;
+    --bg-panel: #1E2E27;
+    --bg-panel-2: #24382F;
+    --line: #38493F;
+    --ink: #F1ECE1;
+    --ink-muted: #A9B8B0;
+    --accent: #C9834A;
+    --accent-soft: #E3A56C;
+    --teal: #7FA69E;
+    --max-w: 920px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--accent); color:#16211D; }
+
+  a{ color:var(--accent-soft); }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent-soft);
+    outline-offset:3px;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0 0 0.5em;
+  }
+
+  .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+
+  .wrap{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- Topo background ---------- */
+  .topo-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    opacity:0.16;
+    pointer-events:none;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(22,33,29,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:16px;
+    padding-bottom:16px;
+  }
+  .nav-name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .nav-links{
+    display:flex;
+    gap:24px;
+    list-style:none;
+    margin:0; padding:0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  .nav-links a{
+    color:var(--ink-muted);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:color .2s, border-color .2s;
+  }
+  .nav-links a:hover{ color:var(--accent-soft); border-color:var(--accent-soft); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    z-index:1;
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 220px;
+    gap:48px;
+    align-items:start;
+  }
+  .coord{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal);
+    margin-bottom:18px;
+    letter-spacing:0.04em;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem, 5vw, 3.4rem);
+    line-height:1.05;
+    color:var(--ink);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--accent-soft);
+  }
+  .hero p{
+    color:var(--ink-muted);
+    max-width:56ch;
+    font-size:1.05rem;
+  }
+  .hero-photo{
+    width:100%;
+    aspect-ratio:4/5;
+    border-radius:4px;
+    object-fit:cover;
+    border:1px solid var(--line);
+    filter:grayscale(15%) sepia(6%);
+  }
+  .hero-cta{
+    margin-top:28px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:11px 20px;
+    border-radius:2px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .15s, background .15s, color .15s;
+    border:1px solid transparent;
+    cursor:pointer;
+    font-weight:500;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#16211D;
+  }
+  .btn-primary:hover{ background:var(--accent-soft); transform:translateY(-1px); }
+  .btn-ghost{
+    border:1px solid var(--line);
+    color:var(--ink-muted);
+  }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-1px); }
+
+  /* Skill tags */
+  .skill-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:22px;
+  }
+  .skill-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.03em;
+    color:var(--teal);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:5px 10px;
+    background:var(--bg-panel);
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    position:relative;
+    z-index:1;
+    padding:64px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:28px;
+  }
+  .section-head .idx{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--line);
+    font-size:0.9rem;
+  }
+  .section-head h2{
+    font-size:1.6rem;
+    color:var(--ink);
+  }
+  .section-lede{
+    color:var(--ink-muted);
+    max-width:64ch;
+    margin-bottom:8px;
+  }
+
+  /* Thesis feature */
+  .thesis-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:4px;
+    padding:32px;
+  }
+  .thesis-panel .label{ margin-bottom:10px; }
+  .thesis-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.4rem;
+    color:var(--accent-soft);
+    margin-bottom:14px;
+    line-height:1.3;
+  }
+  .thesis-panel p{ color:var(--ink-muted); margin-bottom:18px; }
+
+  /* Work Experience */
+  .exp-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    border-radius:4px;
+    padding:32px;
+  }
+  .exp-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .exp-role{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  .exp-org{
+    color:var(--accent-soft);
+    font-size:0.98rem;
+    margin-bottom:4px;
+  }
+  .exp-dates{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-muted);
+    letter-spacing:0.04em;
+    white-space:nowrap;
+  }
+  .exp-list{
+    margin:18px 0 22px;
+    padding-left:0;
+    list-style:none;
+  }
+  .exp-list li{
+    color:var(--ink-muted);
+    padding-left:20px;
+    position:relative;
+    margin-bottom:12px;
+  }
+  .exp-list li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--teal);
+  }
+
+  /* Compact experience cards */
+  .exp-stack{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .exp-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    border-radius:4px;
+    padding:22px 26px;
+  }
+  .exp-card.is-current{ border-left-color:var(--accent); }
+  .exp-card .exp-head{ margin-bottom:2px; }
+  .exp-card .exp-role{ font-size:1.1rem; }
+  .exp-card p{ color:var(--ink-muted); margin:10px 0 0; }
+
+  /* Card list */
+  .card-list{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .card{
+    background:var(--bg-panel);
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    text-decoration:none;
+    transition:background .18s, padding-left .18s;
+  }
+  .card:hover{
+    background:var(--bg-panel-2);
+    padding-left:30px;
+  }
+  .card-title{
+    color:var(--ink);
+    font-weight:600;
+    font-size:1rem;
+  }
+  .card-sub{
+    color:var(--ink-muted);
+    font-size:0.88rem;
+    margin-top:2px;
+  }
+  .card-arrow{
+    color:var(--accent);
+    font-family:'JetBrains Mono', monospace;
+    flex-shrink:0;
+    transition:transform .18s;
+  }
+  .card:hover .card-arrow{ transform:translateX(4px); }
+
+  /* CV block */
+  .cv-block{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:20px;
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px 32px;
+  }
+  .cv-block p{ color:var(--ink-muted); max-width:48ch; margin:0; }
+
+  /* Contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:24px;
+  }
+  .contact-item .label{ margin-bottom:8px; display:block; }
+  .contact-item a, .contact-item span{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:1.02rem;
+  }
+  .contact-item a:hover{ color:var(--accent-soft); }
+
+  footer{
+    position:relative; z-index:1;
+    padding:32px 0 60px;
+    text-align:center;
+  }
+  footer p{
+    color:var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+  }
+
+  @media (max-width:720px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-photo{ max-width:200px; aspect-ratio:1/1; }
+    .nav-links{ display:none; }
+    .exp-head{ flex-direction:column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="topo-bg" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#7FA69E" stroke-width="1">
+    <path d="M-50,150 C150,80 300,220 500,140 C700,60 850,200 1050,120 C1150,80 1250,140 1300,110"/>
+    <path d="M-50,220 C180,150 320,300 520,220 C720,140 880,280 1080,200 C1180,160 1260,210 1330,180"/>
+    <path d="M-50,300 C200,230 340,380 540,300 C740,220 900,360 1100,280 C1200,240 1270,290 1340,260"/>
+    <path d="M-50,600 C200,540 350,680 550,610 C760,540 920,660 1120,590 C1200,560 1260,600 1330,580"/>
+    <path d="M-50,660 C220,600 370,740 570,670 C780,600 940,720 1140,650 C1220,620 1280,660 1340,640"/>
+    <path d="M-50,720 C240,660 390,800 590,730 C800,660 960,780 1160,710 C1230,680 1290,720 1340,700"/>
+    <path d="M-50,1050 C180,990 340,1130 540,1060 C750,990 900,1110 1100,1040 C1190,1010 1250,1050 1330,1030"/>
+    <path d="M-50,1110 C200,1060 360,1190 560,1120 C770,1050 920,1170 1120,1100 C1210,1070 1270,1110 1340,1090"/>
+    <path d="M-50,1170 C220,1120 380,1250 580,1180 C790,1110 940,1230 1140,1160 C1220,1130 1280,1170 1340,1150"/>
+    <path d="M-50,1400 C200,1350 350,1470 550,1410 C760,1350 910,1460 1110,1400 C1200,1370 1260,1400 1330,1390"/>
+  </g>
+</svg>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="nav-name">Jordan Rose</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#maps">Story Maps</a></li>
+      <li><a href="#gis">GIS Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="coord">Geospatial Analyst & Environmental Researcher</div>
+        <h1>Hi, I'm <em>Jordan Rose</em></h1>
+        <p>
+          I'm a physical geographer with experience in GIS, spatial analysis, and environmental
+          field research focused on hydrologic and geomorphic systems. Currently pursuing my
+          M.S. in Geographic Information Systems, I integrate geospatial technologies, remote
+          sensing, and field data collection to study watershed processes, sediment transport,
+          and landscape change. Through the CIROH–USGS FLOW Academy, I've also built hands-on
+          skills in Python, edge computing, and optical sensor design for streamflow monitoring —
+          adding a hardware and data-pipeline dimension to my geospatial work.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://docs.google.com/document/d/1adaZ8qz6ECn_3j1Utf6yuKndrk1pVnt1g71t3cgOSiQ/edit?usp=sharing" target="_blank" rel="noopener">View CV →</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">ArcGIS Pro / Field Maps</span>
+          <span class="skill-tag">QGIS</span>
+          <span class="skill-tag">Python (GeoPandas)</span>
+          <span class="skill-tag">R Studio</span>
+          <span class="skill-tag">Remote Sensing (Sentinel-2)</span>
+          <span class="skill-tag">UAS / Drone Mapping</span>
+          <span class="skill-tag">Water Quality Sensors &amp; Sondes</span>
+          <span class="skill-tag">Turbidity &amp; Storm-Event Sampling</span>
+          <span class="skill-tag">Particle Image Velocimetry</span>
+          <span class="skill-tag">Raspberry Pi / Edge Computing</span>
+          <span class="skill-tag">USGS Data APIs</span>
+          <span class="skill-tag">Field Calibration &amp; QA/QC</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Data Visualization &amp; Reporting</span>
+        </div>
+      </div>
+      <img class="hero-photo" src="unnamed.jpg" alt="Portrait of Jordan Rose">
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">01</span>
+        <h2>Work Experience</h2>
+      </div>
+      <p class="section-lede">
+        Field hydrology, GIS, and applied sensing work across research labs, nonprofits, and
+        academic programs.
+      </p>
+      <div class="exp-stack">
+
+        <div class="exp-card is-current">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Research Fellow, CIROH–USGS FLOW Academy</div>
+              <div class="exp-org">University of Alabama, Tuscaloosa, AL</div>
+            </div>
+            <div class="exp-dates">June 2026</div>
+          </div>
+          <p>
+            During this five-week USGS-affiliated research program, I helped build and test SPEC,
+            an edge-computing optical sensor for non-contact streamflow monitoring using Particle
+            Image Velocimetry. I configured Raspberry Pi devices, wrote Python scripts to pull
+            data from USGS web services, and ran flume and tow-tank trials comparing sensor
+            readings against standard flow measurements.
+          </p>
+        </div>
+
+        <div class="exp-card is-current">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Research Technician / Field Hydrology Technician</div>
+              <div class="exp-org">Geomatics Aerial Environmental Research Group (GAERG), CSUN</div>
+            </div>
+            <div class="exp-dates">2025 – Present</div>
+          </div>
+          <p>
+            On this NSF-funded project with UT Arlington, I monitor watershed water quality
+            during storm events following the Palisades and Eaton Fires, collecting samples and
+            operating multi-parameter meters and turbidity sensors. I help calibrate instruments,
+            maintain data quality, and integrate field observations into GIS-based analyses of
+            post-fire hydrologic response.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Riparian Data Mapping Intern</div>
+              <div class="exp-org">San Diego River Park Foundation, San Diego, CA</div>
+            </div>
+            <div class="exp-dates">2023 – 2024</div>
+          </div>
+          <p>
+            I carried out weekly river corridor surveys with ArcGIS Field Maps to document
+            riparian conditions and environmental hazards along the San Diego River. Water
+            quality samples and spatial data I collected fed into restoration planning and grant
+            reporting for the watershed.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">GIS Specialist &amp; Research Assistant</div>
+              <div class="exp-org">National Latino Research Center, San Diego, CA</div>
+            </div>
+            <div class="exp-dates">2023 – 2024</div>
+          </div>
+          <p>
+            I led spatial data collection and analysis for environmental justice and public
+            health research, producing GIS products that connected environmental conditions to
+            social and infrastructure datasets relevant to community resource access.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Wildlife Insights Data Mapper</div>
+              <div class="exp-org">California State University San Marcos</div>
+            </div>
+            <div class="exp-dates">2023 – 2024</div>
+          </div>
+          <p>
+            I deployed and maintained camera traps across managed watershed areas at Daley Ranch
+            Preserve and managed the resulting spatial datasets as part of a long-term
+            environmental monitoring initiative.
+          </p>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-role">Sustainable Landscape Design Center Lead</div>
+              <div class="exp-org">JNR Home Improvements, Lancaster, CA</div>
+            </div>
+            <div class="exp-dates">2019 – 2023</div>
+          </div>
+          <p>
+            I designed drought-resilient landscapes and irrigation plans grounded in local
+            hydrology and municipal water regulations — an early, hands-on introduction to
+            water-conscious design that still informs how I think about watershed systems today.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="thesis">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">02</span>
+        <h2>Master's Thesis</h2>
+      </div>
+      <p class="section-lede">
+        Field measurements, UAS-derived topography, and GIS analysis investigating sediment
+        dynamics and landscape change in a post-fire watershed.
+      </p>
+      <div class="thesis-panel">
+        <span class="label">Ongoing Research</span>
+        <div class="thesis-title">From Fire to Flow: Monitoring Channel and Water Quality in Burned Reaches of McGee Creek</div>
+        <p>
+          This thesis combines on-the-ground measurement with drone-derived elevation data and
+          spatial analysis to understand how wildfire reshapes channel form and water quality
+          over time.
+        </p>
+        <a class="btn btn-ghost" href="https://docs.google.com/document/d/1tjfBdJSX33gr4VwLyFfqqGvdeejXaOjQTdU0JxmSpXo/edit?usp=sharing" target="_blank" rel="noopener">Read the abstract →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="maps">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">03</span>
+        <h2>Mapping Narratives</h2>
+      </div>
+      <p class="section-lede">
+        Story Maps combining GIS, spatial analysis, and visual storytelling to communicate
+        geographic research and environmental processes.
+      </p>
+      <div class="card-list">
+        <a class="card" href="https://storymaps.arcgis.com/stories/2cb06f475c2e4148aa3beca03ee6eec6" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Flood Risk Mapping in San Diego's Mission Valley</div>
+            <div class="card-sub">ArcGIS StoryMap</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a class="card" href="https://storymaps.arcgis.com/stories/d1e1d37696f74c1bbb95694c22da6ccb" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Building Cultural Belonging through Community Engagement</div>
+            <div class="card-sub">ArcGIS StoryMap</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gis">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">04</span>
+        <h2>Spatial Analysis &amp; GIS Applications</h2>
+      </div>
+      <p class="section-lede">
+        Selected GIS projects and laboratory reports demonstrating experience with spatial
+        analysis, geospatial data management, and cartographic visualization.
+      </p>
+      <div class="card-list">
+        <a class="card" href="https://docs.google.com/document/d/1efTzlKwge_vDOHsczsKvPyDAZE6gD8jt6o17ESzYtOU/edit?usp=sharing" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Life Cycle of High-Altitude Meadows</div>
+            <div class="card-sub">Report</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a class="card" href="https://docs.google.com/document/d/1sxzhgdR97wIBgkqSwyIrXj3a2VWvGUA-/edit?usp=sharing&ouid=115697119884469940694&rtpof=true&sd=true" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Analyzing Access to Birthing Facilities</div>
+            <div class="card-sub">Report</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a class="card" href="https://docs.google.com/document/d/15E6NLh9y9mWGzaEoGUIgmMUpiRT3brdH95CnLW3Aedg/edit?usp=sharing" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Business Spatial Distribution Using R-Studio</div>
+            <div class="card-sub">Report</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a class="card" href="https://docs.google.com/document/d/1kzc0_ihN1PROqwxqGNs0HqC8g6rdSkddjaxL5kuCLb4/edit?usp=sharing" target="_blank" rel="noopener">
+          <div>
+            <div class="card-title">Regional Disparities in Health Outcomes</div>
+            <div class="card-sub">Report</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv-section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">05</span>
+        <h2>Curriculum Vitae</h2>
+      </div>
+      <div class="cv-block">
+        <p>Full summary of research, academic background, and professional experience.</p>
+        <a class="btn btn-primary" href="https://docs.google.com/document/d/1adaZ8qz6ECn_3j1Utf6yuKndrk1pVnt1g71t3cgOSiQ/edit?usp=sharing" target="_blank" rel="noopener">Open CV →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="idx">06</span>
+        <h2>Get in touch</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/jordan-rose-3669182a5" target="_blank" rel="noopener">jordan-rose-3669182a5</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">Phone</span>
+          <span>(661) 264-6298</span>
+        </div>
+        <div class="contact-item">
+          <span class="label">Email</span>
+          <a href="mailto:rosejordanblaine@gmail.com">rosejordanblaine@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>JORDAN ROSE · GEOSPATIAL RESEARCH PORTFOLIO</p>
+</footer>
+
+</body>
+</html>
